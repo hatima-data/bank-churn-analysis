@@ -171,3 +171,13 @@ SELECT * FROM dbo.bank_churn_gold_activity_products ORDER BY churn_rate_pct DESC
 
 -- 3. Balans holati bo'yicha
 SELECT * FROM dbo.bank_churn_gold_balance_status ORDER BY churn_rate_pct DESC;
+
+SELECT 
+    NumOfProducts,
+    count(*) as customers,
+    sum(cast(Exited as int)) as churned,
+    round(100.0*sum(cast(Exited as int))/Count(*), 2) as churn_rate_pct
+    from Bank_churn
+    group by NumOfProducts
+    order by NumOfProducts;
+
